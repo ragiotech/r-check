@@ -1,0 +1,22 @@
+---
+
+- name: Cisco ip interface brief + ip route
+  hosts: routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: run show ip interface brief + ip route
+      ios_command:
+        commands: 
+          - show ip interface brief
+          - show ip route
+          - show version | incl Version
+          - show interface description
+          - show clock
+          - show int Gi1
+      register: output
+
+    - name: print output
+      debug:
+        var: output.stdout_lines
